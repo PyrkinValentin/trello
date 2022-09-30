@@ -2,7 +2,7 @@
   "name": "trello",
   "version": "1.0.0",
   "description": "",
-  "source": "src/pages/index.html",
+  "source": "src/index.html",
   "scripts": {
     "start": "parcel --port 3000 --open",
     "build": "parcel build"
