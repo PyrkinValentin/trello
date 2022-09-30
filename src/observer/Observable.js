@@ -3,51 +3,51 @@ import Storage from "../utils/Storage"
 const initialState = JSON.parse(window.localStorage.getItem('todos')) || []
 
 class Observable extends Storage {
+	#observers = []
+	#prevState = initialState
+	#state = initialState
+
 	constructor() {
 		super()
-
-		this.observers = []
-		this._prevState = initialState
-		this._state = initialState
 	}
 
 	set state(state) {
-		this._state = [...this._state, state]
+		this.#state = [...this.#state, state]
 		this.updateState('set')
 	}
 
 	get state() {
-		return this._state
+		return this.#state
 	}
 
 	updateState(type) {
 		this.broadcast(type)
-		this.storage(this._state)
-		this._prevState = this._state
+		this.storage(this.#state)
+		this.#prevState = this.#state
 	}
 
 	removeState(removeId) {
 		if (removeId) {
-			this._state = this._state.filter(todo => todo.id !== removeId)
+			this.#state = this.#state.filter(todo => todo.id !== removeId)
 		}
 
 		if (!removeId) {
-			this._state = []
+			this.#state = []
 		}
 
 		this.updateState('remove')
 	}
 
 	subscribe(observer) {
-		this.observers.push(observer)
+		this.#observers.push(observer)
 	}
 
 	unsubscribe(newObserver) {
-		this.observers = this.observers.filter(observer => observer !== newObserver)
+		this.#observers = this.#observers.filter(observer => observer !== newObserver)
 	}
 
 	broadcast(type) {
-		this.observers.forEach(observer => observer(this._prevState, this._state, type))
+		this.#observers.forEach(observer => observer(this.#prevState, this.#state, type))
 	}
 }
 
