@@ -1,5 +1,5 @@
 class Storage {
-	#removeVisibilitychange = undefined
+	#removeVisibilitychange = null
 
 	storage(state) {
 		if (this.#removeVisibilitychange) this.#removeVisibilitychange()

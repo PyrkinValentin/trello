@@ -1,28 +1,26 @@
 class CreateThreeElements {
-	constructor() {
-		this._selectors = {}
-	}
+	#selectors = {}
 
 	set(id, selector) {
-		this._selectors[id] = selector
+		this.#selectors[id] = selector
 	}
 
 	get(id) {
-		return id ? this._selectors[id] : this._selectors
+		return id ? this.#selectors[id] : this.#selectors
 	}
 
 	remove(id) {
 		if (id) {
-			this._selectors[id].remove()
-			delete this._selectors[id]
+			this.#selectors[id].remove()
+			delete this.#selectors[id]
 		}
 
 		if (!id) {
-			for (const selector of Object.values(this._selectors)) {
+			for (const selector of Object.values(this.#selectors)) {
 				selector.remove()
 			}
 
-			this._selectors = {}
+			this.#selectors = {}
 		}
 	}
 }
