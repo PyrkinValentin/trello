@@ -1,0 +1,25 @@
+{
+  "name": "trello",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/pages/index.html",
+  "scripts": {
+    "start": "parcel --port 3000 --open",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PyrkinValentin/trello.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PyrkinValentin/trello/issues"
+  },
+  "homepage": "https://github.com/PyrkinValentin/trello#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0",
+    "parcel": "^2.7.0",
+    "sass": "^1.55.0"
+  }
+}
