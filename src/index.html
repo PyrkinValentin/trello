@@ -3,9 +3,111 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Trello clone</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-Home page
+	<div class="body-wrap">
+		<header class="header">
+		</header>
+		<main class="content-wrap">
+			<div class="card-container">
+				<div class="card-container__card-header">
+					<h2 class="card-container__card-header__title">Список дел</h2>
+					<span class="card-container__card-header__counter">3</span>
+				</div>
+				
+				<div class="deal-wrap">
+					<div class="deal-wrap__header">
+						<h3 class="deal-wrap__header__title">Lorem </h3>
+						<div class="control-task">
+							<button class="control-task__modify-deal edit-deal">Изменить</button>
+							<button class="control-task__modify-deal delete-deal">X</button>
+						</div>
+					</div>
+					<div class="deal-wrap__description">
+						<span class="deal-wrap__description__title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate voluptas ex a ipsum hic accusantium facere voluptatibus asperiores cupiditate rem dolores soluta suscipit illo voluptatum, optio sunt? Aliquid, ducimus omnis?</span>
+						<div class="deal-wrap__description__promote-deal-container">
+							<button class="send-next-card">></button>
+						</div>
+					</div>
+					<div class="deal-wrap__info">
+						<div class="deal-wrap__info__info-conteiner">
+							<span class="deal-wrap__info__info-conteiner__user">User</span>
+							<span class="deal-wrap__info__info-conteiner__date">Date</span>
+						</div>
+					</div>
+				</div>
+
+				<button class="card-container__modify-list add-element">
+					<p class="card-container__modify-list__tltle">+ Добавить карточку</p>
+				</button>
+
+			</div>
+			<div class="card-container">
+				<div class="card-container__card-header">
+					<h2 class="card-container__card-header__title">В процессе</h2>
+					<span class="card-container__card-header__counter">3</span>
+				</div>
+
+				<div class="deal-wrap">
+					<div class="deal-wrap__header">
+						<h3 class="deal-wrap__header__title">Lorem </h3>
+						<div class="control-task">
+							<button class="control-task__modify-deal edit-deal">Изменить</button>
+							<button class="control-task__modify-deal delete-deal">X</button>
+						</div>
+					</div>
+					<div class="deal-wrap__description">
+						<span class="deal-wrap__description__title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate voluptas ex a ipsum hic accusantium facere voluptatibus asperiores cupiditate rem dolores soluta suscipit illo voluptatum, optio sunt? Aliquid, ducimus omnis?</span>
+						<div class="deal-wrap__description__promote-deal-container">
+							<button class="send-next-card">></button>
+						</div>
+					</div>
+					<div class="deal-wrap__info">
+						<div class="deal-wrap__info__info-conteiner">
+							<span class="deal-wrap__info__info-conteiner__user">User</span>
+							<span class="deal-wrap__info__info-conteiner__date">Date</span>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="card-container">
+				<div class="card-container__card-header">
+					<h2 class="card-container__card-header__title">Готово</h2>
+					<span class="card-container__card-header__counter">3</span>
+				</div>
+				<div class="deal-wrap">
+					<div class="deal-wrap__header">
+						<h3 class="deal-wrap__header__title">Lorem </h3>
+						<div class="control-task">
+							<button class="control-task__modify-deal edit-deal">Изменить</button>
+							<button class="control-task__modify-deal delete-deal">X</button>
+						</div>
+					</div>
+					<div class="deal-wrap__description">
+						<span class="deal-wrap__description__title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate voluptas ex a ipsum hic accusantium facere voluptatibus asperiores cupiditate rem dolores soluta suscipit illo voluptatum, optio sunt? Aliquid, ducimus omnis?</span>
+						<div class="deal-wrap__description__promote-deal-container">
+							<button class="send-next-card">></button>
+						</div>
+					</div>
+					<div class="deal-wrap__info">
+						<div class="deal-wrap__info__info-conteiner">
+							<span class="deal-wrap__info__info-conteiner__user">User</span>
+							<span class="deal-wrap__info__info-conteiner__date">Date</span>
+						</div>
+					</div>
+				</div>
+				<button class="card-container__modify-list delete-elements">
+					<p class="card-container__modify-list__tltle">Удалить всё</p>
+				</button>
+			</div>
+		</main>
+	</div>
+
+
 <script type="module" src="app.js"></script>
 </body>
 </html>
