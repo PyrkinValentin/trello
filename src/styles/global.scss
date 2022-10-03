@@ -20,7 +20,7 @@ body {
         margin-bottom: 10px;
         height: 50px;
         border: 1px solid skyblue;
-    } 
+    }
 
     .content-wrap {
         height: 100%;
@@ -64,14 +64,14 @@ body {
                 -webkit-box-shadow: 5px 4px 15px 0px rgba(34, 60, 80, 0.2);
                 -moz-box-shadow: 5px 4px 15px 0px rgba(34, 60, 80, 0.2);
                 box-shadow: 5px 4px 15px 0px rgba(34, 60, 80, 0.2);
-            
+
                 &__header {
                     padding: 5px;
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
                     justify-content: space-between;
                     gap: 10px;
-                    
+
                     &__title {
                         font-weight: 550;
                         font-size: 16px;
@@ -169,7 +169,7 @@ body {
                 font-weight: 500;
             }
         }
-        
+
         .card-container:last-child {
             .send-next-card {
                 display: none;
@@ -199,4 +199,10 @@ body {
 :root {
   --color-blue-light-transparent: rgba(0, 135, 214, 0.8);
   --color-blue: #026AA7;
+  --color-gray: #e2e2e7;
+  --color-gray-transparent: #ebecf0;
+  --color-green-border: #2f4f4f;
+  --color-blue-buttons: #0079BF;
+  --color-white-buttons-text: #fff;
+  --color-lightgray: #d0d4e4;
 }
