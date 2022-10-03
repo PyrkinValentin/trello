@@ -2,9 +2,9 @@
   width: 100%;
   min-width: 320px;
   max-height: 44px;
-  background-color: var(--color-blue);
+  background-color: var(--color-blue-transparent);
   border-bottom: 1px solid black ;
-  padding: 6px 32px;
+  padding: 6px 8px;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
@@ -15,12 +15,12 @@
 }
 .header__time{
   color: white;
-  border: 1px solid white;
+  //border: 1px solid white;
   border-radius: 1rem;
   padding: 5px;
   display: flex;
   align-items: center;
-  background-color: var(--color-blue-light-transparent);
+  //background-color: var(--color-blue-light-transparent);
 }
 
 

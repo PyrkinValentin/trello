@@ -1,5 +1,6 @@
 import "./styles/reset.scss"
 import "./styles/global.scss"
+import "./styles/common.scss"
 import "./styles/buttons.scss"
 import "./styles/header.scss"
 import "./styles/column.scss"
@@ -11,5 +12,5 @@ import RenderDOM from "./utils/RenderDOM"
 
 setInterval(Time, 1000)
 
-RenderDOM(Dialog())
-RenderDOM(Warning())
+//RenderDOM(Dialog())
+//RenderDOM(Warning())
