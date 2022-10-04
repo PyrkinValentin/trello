@@ -1,11 +1,20 @@
 import "./styles/reset.scss"
 import "./styles/global.scss"
+import "./styles/common.scss"
 import "./styles/buttons.scss"
 import "./styles/header.scss"
 import "./styles/column.scss"
 import "./styles/card.scss"
-import Time from "./components/time/time"
+import Time from "./components/time/Time"
+import Dialog from "./components/dialog/Dialog"
+import Warning from "./components/warning/Warning"
+import RenderDOM from "./utils/RenderDOM"
+import addElementBtn from "./components/column/Column.js"
+import {removeAllElementsBtn} from "./components/column/Column.js"
 
-setInterval(() => document.getElementById('id_clock').innerText = Time, 1000)
+setInterval(Time, 1000)
 
-console.log('Hello world')
+
+
+//RenderDOM(Dialog())
+//RenderDOM(Warning())
