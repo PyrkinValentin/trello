@@ -15,6 +15,10 @@ divWarningButtons.classList.add(styles.divWarning__container)
 const warningButtonCancel = document.createElement('button')
 warningButtonCancel.innerText = 'Cancel'
 warningButtonCancel.classList.add(styles.divWarning__button_cancel)
+warningButtonCancel.addEventListener('click', () => {
+    const warningElementBlock = document.querySelector('.e2S6zq_divWarning');
+    return warningElementBlock.remove();
+});
 
 
 const warningButtonConfirm = document.createElement('button')

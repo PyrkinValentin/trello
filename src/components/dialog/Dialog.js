@@ -48,6 +48,10 @@ const Dialog = () => {
     const buttonCancel = document.createElement('button')
     buttonCancel.innerText = 'Cancel'
     buttonCancel.classList.add(styles.container__button_cancel)
+    buttonCancel.addEventListener('click', () => {
+        const dialogWindowBlock = document.querySelector('._7kvKSW_container');
+        return dialogWindowBlock.remove();
+    });
 
     options.forEach(({qualifiedName, value}) => {
         const option = document.createElement('option')

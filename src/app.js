@@ -9,8 +9,12 @@ import Time from "./components/time/Time"
 import Dialog from "./components/dialog/Dialog"
 import Warning from "./components/warning/Warning"
 import RenderDOM from "./utils/RenderDOM"
+import addElementBtn from "./components/column/Column.js"
+import {removeAllElementsBtn} from "./components/column/Column.js"
 
 setInterval(Time, 1000)
+
+
 
 //RenderDOM(Dialog())
 //RenderDOM(Warning())
