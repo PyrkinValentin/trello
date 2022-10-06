@@ -1,4 +1,5 @@
 import Storage from "../utils/Storage"
+import {threeElements} from "../threeElements/rootThreeElements"
 
 const initialState = JSON.parse(window.localStorage.getItem('todos')) || []
 
@@ -29,10 +30,12 @@ class Observable extends Storage {
 	removeState(removeId) {
 		if (removeId) {
 			this.#state = this.#state.filter(todo => todo.id !== removeId)
+			threeElements.remove(removeId)
 		}
 
 		if (!removeId) {
 			this.#state = []
+			threeElements.remove()
 		}
 
 		this.updateState('remove')
