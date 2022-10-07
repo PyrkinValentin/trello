@@ -12,15 +12,13 @@ import styles from "./Columns.module.scss"
 import plusImg from "../../assets/img/plus.svg"
 
 const ColumnTodo = () => {
-	const counterRef = getRef(null)
 	const todosRef = getRef(null)
+	const counterRef = getRef(null)
 
 	todoListObserver.subscribe((prevState, state, type) => {
-		if (type === 'init' || type === 'set' || type === 'remove') {
+		if (type !== 'update') {
 			counterRef.current.innerText = state.length
-		}
 
-		if (type === 'init' || type === 'set') {
 			const newTodos = state
 				.filter(todo => !prevState.find(prev => prev.id === todo.id))
 				.map(todo => Card(todo))
@@ -56,13 +54,11 @@ const ColumnTodo = () => {
 				),
 
 				div({ ref: counterRef, class: styles.counter },
-					todoListObserver.state.length
+					0
 				)
 			),
 
-			div({ ref: todosRef, class: styles.items },
-				...todoListObserver.state.map(todo => Card(todo))
-			),
+			div({ ref: todosRef, class: styles.items }),
 
 			button({ type: 'button', class: [styles.addTodoBtn, '_ripple'].join(' '), onClick: handleNewTodo },
 				img({ src: plusImg, alt: 'new todo' }),

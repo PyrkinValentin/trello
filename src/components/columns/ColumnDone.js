@@ -1,16 +1,47 @@
 import {button, div, h2, img} from "../../utils/createTags"
+import getRef from "../../utils/getRef"
+import equalObjects from "../../utils/equalObjects"
 
 import Card from "../card/Card"
+
+import {doneObserver} from "../../observer/rootObserver"
+import {threeElements} from "../../threeElements/rootThreeElements"
 
 import styles from "./Columns.module.scss"
 
 import removeAllImg from "../../assets/img/remove-all.svg"
-import {todoListObserver} from "../../observer/rootObserver"
-import {doneObserver} from "../../observer/rootObserver"
 
 const ColumnDone = () => {
+	const todosRef = getRef(null)
+	const counterRef = getRef(null)
+
+	doneObserver.subscribe((prevState, state, type) => {
+		if (type !== 'update') {
+			counterRef.current.innerText = state.length
+
+			const newTodos = state
+				.filter(todo => !prevState.find(prev => prev.id === todo.id))
+				.map(todo => Card(todo))
+
+			todosRef.current.append(...newTodos)
+		}
+
+		if (type === 'update') {
+			const todo = state.find((todo, i) => !equalObjects(prevState[i], todo))
+
+			if (todo) {
+				const oldNode = threeElements.get(todo.id)
+
+				todosRef.current.replaceChild(
+					Card(todo),
+					oldNode
+				)
+			}
+		}
+	})
+
 	const handleRemoveAll = () => {
-		//doneObserver.remove()
+
 	}
 
 	return (
@@ -20,14 +51,12 @@ const ColumnDone = () => {
 					'Done'
 				),
 
-				div({ class: styles.counter },
-					'8'
+				div({ ref: counterRef, class: styles.counter },
+					0
 				)
 			),
 
-			div({ class: styles.items },
-				//...todoListObserver.state.map(todo => Card(todo))
-			),
+			div({ ref: todosRef, class: styles.items }),
 
 			button({ type: 'button', class: [styles.addTodoBtn, '_ripple'].join(' '), onClick: handleRemoveAll },
 				img({ src: removeAllImg, alt: 'new todo' }),
