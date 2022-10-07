@@ -1,17 +1,20 @@
-import api from "../../api/api"
-
 import renderDOM from "../../utils/renderDOM"
 import {button, img, div} from "../../utils/createTags"
 
 import Dialog from "../dialog/Dialog"
 
-import {todoListObserver} from "../../observer/rootObserver"
+import api from "../../api/api"
+import {todoListObserver, inProgressObserver, doneObserver} from "../../observer/rootObserver"
+
 import styles from "./Card.module.scss"
 
+import prevImg from "../../assets/img/prev.svg"
+import nextImg from "../../assets/img/next.svg"
+import checkImg from "../../assets/img/check.svg"
 import removeImg from "../../assets/img/remove.svg"
 
 const Card = (props) => {
-	const { id, title, username, date } = props || {}
+	const { id, title, username, date, progress } = props || {}
 
 	const handleShowInfo = () => {
 		renderDOM(
@@ -19,14 +22,79 @@ const Card = (props) => {
 		)
 	}
 
-	const handleRemove = () => {
-		todoListObserver.remove(id)
+	const handlePrev = () => {
+		props.progress = 'wait'
+		inProgressObserver.remove(id)
+		todoListObserver.state = props
 
-		api(`todos/${id}`, 'DELETE')
+		api.put(`todos/${id}`, props)
+	}
+
+	const handleNext = () => {
+		if (progress === 'wait') {
+			if (inProgressObserver.state.length >= 6) {
+				console.warn('Нельзя переместить в inProgress так как там есть 6 и более активных задач.')
+				return
+			}
+
+			props.progress = 'work'
+			todoListObserver.remove(id)
+			inProgressObserver.state = props
+		}
+
+		if (progress === 'work') {
+			props.progress = 'done'
+			inProgressObserver.remove(id)
+			doneObserver.state = props
+		}
+
+		api.put(`todos/${id}`, props)
+	}
+
+	const handleRemove = () => {
+		if (progress === 'wait') todoListObserver.remove(id)
+		if (progress === 'work') inProgressObserver.remove(id)
+		if (progress === 'done') doneObserver.remove(id)
+
+		api.delete(`todos/${id}`)
+	}
+
+	let buttonsGroup
+
+	if (progress === 'wait') {
+		buttonsGroup = [
+			button({ type: 'button', class: styles.btn, onClick: handleNext },
+				img({ src: nextImg, alt: 'Next this' })
+			),
+
+			button({ type: 'button', class: styles.btn, onClick: handleRemove },
+				img({ src: removeImg, alt: 'Remove this' })
+			)
+		]
+	}
+
+	if (progress === 'work') {
+		buttonsGroup = [
+			button({ type: 'button', class: styles.btn, onClick: handlePrev },
+				img({ src: prevImg, alt: 'Prev this' })
+			),
+
+			button({ type: 'button', class: styles.btn, onClick: handleNext },
+				img({ src: checkImg, alt: 'Next this' })
+			),
+		]
+	}
+
+	if (progress === 'done') {
+		buttonsGroup = [
+			button({ type: 'button', class: styles.btn, onClick: handleRemove },
+				img({ src: removeImg, alt: 'Remove this' })
+			)
+		]
 	}
 
 	return (
-		div({ key: id, class: styles.container, draggable: true },
+		div({ key: id, class: styles.container },
 			div({ class: styles.header, onClick: handleShowInfo },
 				div({ class: styles.title },
 					title
@@ -35,10 +103,18 @@ const Card = (props) => {
 
 			div({ class: styles.info },
 				div({ class: styles.wrapper },
-					`${username && !username.startsWith('username') ? username : 'No contributor'}, ${date}`, // undefined mockapi не принимает. Возвращает предыдущее значение. Приходится костыли такие делать !username.startsWith('username')...
+					div({},
+						div({},
+							`${username && !username.startsWith('username') ? username : 'No contributor'}`
+						),
 
-					button({ type: 'button', class: styles.remove, onClick: handleRemove },
-						img({ src: removeImg, alt: 'Remove this' })
+						div({ class: styles.data },
+							date
+						)
+					),
+
+					div({ class: styles.group },
+						...buttonsGroup
 					)
 				)
 			)

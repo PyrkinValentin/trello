@@ -37,24 +37,34 @@
   justify-content: space-between;
 }
 
-.remove {
-  background: transparent;
-  border-radius: 7px;
-  font-size: 1.5rem;
+.data {
+  font-size: 1rem;
+  color: var(--color-violet-light);
+}
 
-  img {
-    color: var(--color-white-buttons-text);
-    width: 16px;
-    height: 16px;
+.group {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
 
-    stroke-width: 2;
-
+  .btn {
+    background: transparent;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
-    transition: background-color .2s ease-in-out, transform .2s ease-in-out;
 
-    &:hover {
-      transform: scale(1.2);
+    img {
+      color: var(--color-white-buttons-text);
+      width: 16px;
+      height: 16px;
+
+      stroke-width: 2;
+
+      transition: background-color .2s ease-in-out, transform .2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }

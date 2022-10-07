@@ -2,7 +2,7 @@
   width: 100%;
   min-width: 320px;
 
-  background-color: var(--color-purple-transparent);
+  background-color: #8083b5d9;
   padding: 6px 16px;
 
   display: flex;
@@ -10,7 +10,7 @@
 }
 
 .logo {
-  background-image: url(../../assets/img/logo.gif);
+  background-image: url('../../assets/img/logo.gif');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

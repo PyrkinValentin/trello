@@ -1,8 +1,7 @@
-import {newTodoStore} from "../../store/rootStore"
-import {todoListObserver, usersObserver} from "../../observer/rootObserver"
-
 import api from "../../api/api"
-import createId from "../../utils/createId"
+import {newTodoStore} from "../../store/rootStore"
+import {usersObserver, todoListObserver, inProgressObserver, doneObserver} from "../../observer/rootObserver"
+
 import getDate from "../../utils/getDate"
 import {button, div, img, input, select, textarea, option, label, span} from "../../utils/createTags"
 import getRef from "../../utils/getRef"
@@ -21,7 +20,7 @@ const warning = (selector) => {
 }
 
 const Dialog = (params) => {
-	const { title = '', description = '', userId, id } = params || {}
+	const { title = '', description = '', userId, id, progress } = params || {}
 
 	const containerRef = getRef(null)
 	const dialogRef = getRef(null)
@@ -31,7 +30,6 @@ const Dialog = (params) => {
 
 	usersObserver.subscribe((_, state, type) => {
 		if (type !== 'init') return
-
 
 		selectUserRef.current.append(
 			...state.map(user =>
@@ -87,24 +85,38 @@ const Dialog = (params) => {
 		}
 
 		if (id) {
-			todoListObserver.update(
-				id,
-				newTodoStore.state,
-			)
+			if (progress === 'wait') {
+				todoListObserver.update(
+					newTodoStore.state,
+				)
+			}
 
-			api(`todos/${id}`, 'PUT', newTodoStore.state)
+			if (progress === 'work') {
+				inProgressObserver.update(
+					newTodoStore.state,
+				)
+			}
+
+			if (progress === 'done') {
+				doneObserver.update(
+					newTodoStore.state,
+				)
+			}
+
+			api.put(`todos/${id}`, newTodoStore.state)
 		}
 
 		if (!id) {
 			newTodoStore.state = {
 				...newTodoStore.state,
-				id: createId(),
 				date: getDate(),
+				progress: 'wait',
 			}
 
-			todoListObserver.state = newTodoStore.state
-
-			api('todos', 'POST', newTodoStore.state)
+			api.post('todos', newTodoStore.state).then(({ status, data }) => { // Меняем стейт после resolve промиса так как мок api дает свой id для обьекта
+				if (status !== 201) return console.error('Unsuccessful request')
+				todoListObserver.state = data
+			})
 		}
 
 		handleClose()
