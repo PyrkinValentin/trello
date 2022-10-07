@@ -16,11 +16,11 @@ const ColumnTodo = () => {
 	const todosRef = getRef(null)
 
 	todoListObserver.subscribe((prevState, state, type) => {
-		if (type === 'set' || type === 'remove') {
+		if (type === 'init' || type === 'set' || type === 'remove') {
 			counterRef.current.innerText = state.length
 		}
 
-		if (type === 'set') {
+		if (type === 'init' || type === 'set') {
 			const newTodos = state
 				.filter(todo => !prevState.find(prev => prev.id === todo.id))
 				.map(todo => Card(todo))
