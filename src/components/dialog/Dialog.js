@@ -29,11 +29,12 @@ const Dialog = (params) => {
 	const descriptionRef = getRef(null)
 	const selectUserRef = getRef(null)
 
-	usersObserver.subscribe((prev, curr, type) => {
+	usersObserver.subscribe((_, state, type) => {
 		if (type !== 'init') return
 
+
 		selectUserRef.current.append(
-			...curr.map(user =>
+			...state.map(user =>
 				option({ value: user.id, selected: user.id === userId },
 					user.username
 				)
