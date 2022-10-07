@@ -1,15 +1,18 @@
-import Storage from "../utils/Storage"
 import {threeElements} from "../threeElements/rootThreeElements"
 
-const initialState = JSON.parse(window.localStorage.getItem('todos')) || []
-
-class Observable extends Storage {
+class Observable {
 	#observers = []
-	#prevState = initialState
-	#state = initialState
+	#prevState = null
+	#state = null
 
-	constructor() {
-		super()
+	constructor(initialState) {
+		this.#state = initialState
+		this.#prevState = initialState
+	}
+
+	init(state) {
+		this.#state = [...this.#state, ...state]
+		this.action('set')
 	}
 
 	set state(state) {
@@ -32,7 +35,6 @@ class Observable extends Storage {
 
 	action(type) {
 		this.broadcast(type)
-		this.storage(this.#state)
 		this.#prevState = this.#state
 	}
 

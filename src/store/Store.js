@@ -1,18 +1,22 @@
 class Store {
-	constructor() {
-		this._state = {}
+	#initialState = null
+	#state = null
+
+	constructor(initialState) {
+		this.#initialState = initialState
+		this.#state = this.#initialState
 	}
 
 	get state () {
-		return this._state
+		return this.#state
 	}
 
 	set state (state) {
-		this._state = {...this._state, ...state}
+		this.#state = state
 	}
 
 	clear() {
-		this._state = {}
+		this.#state = this.#initialState
 	}
 }
 
