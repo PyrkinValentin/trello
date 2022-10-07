@@ -12,7 +12,7 @@ class Observable {
 
 	init(state) {
 		this.#state = [...this.#state, ...state]
-		this.action('set')
+		this.action('init')
 	}
 
 	set state(state) {
