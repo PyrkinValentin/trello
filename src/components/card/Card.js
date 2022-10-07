@@ -10,7 +10,6 @@ import styles from "./Card.module.scss"
 
 import prevImg from "../../assets/img/prev.svg"
 import nextImg from "../../assets/img/next.svg"
-import checkImg from "../../assets/img/check.svg"
 import removeImg from "../../assets/img/remove.svg"
 
 const Card = (props) => {
@@ -80,7 +79,7 @@ const Card = (props) => {
 			),
 
 			button({ type: 'button', class: styles.btn, onClick: handleNext },
-				img({ src: checkImg, alt: 'Next this' })
+				img({ src: nextImg, alt: 'Next this' })
 			),
 		]
 	}
