@@ -10,7 +10,7 @@ import {doneObserver} from "../../observer/rootObserver"
 
 const ColumnDone = () => {
 	const handleRemoveAll = () => {
-		doneObserver.removeState()
+		//doneObserver.remove()
 	}
 
 	return (
@@ -26,7 +26,7 @@ const ColumnDone = () => {
 			),
 
 			div({ class: styles.items },
-				...todoListObserver.state.map(todo => Card(todo))
+				//...todoListObserver.state.map(todo => Card(todo))
 			),
 
 			button({ type: 'button', class: [styles.addTodoBtn, '_ripple'].join(' '), onClick: handleRemoveAll },
