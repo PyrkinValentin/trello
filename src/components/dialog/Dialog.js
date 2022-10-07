@@ -5,7 +5,6 @@ import users from "../../variables/users"
 import createId from "../../utils/createId"
 import getDate from "../../utils/getDate"
 import {button, div, img, input, select, textarea, option, label, span} from "../../utils/createTags"
-import clickOutSide from "../../utils/clickOutSide"
 import getRef from "../../utils/getRef"
 
 import styles from "./Dialog.module.scss"
@@ -22,13 +21,23 @@ const warning = (selector) => {
 }
 
 const Dialog = (params) => {
-	const { title = '', description = '', userId } = params || {}
+	const { title = '', description = '', userId, id, date } = params || {}
 
 	const containerRef = getRef(null)
 	const dialogRef = getRef(null)
 	const titleRef = getRef(null)
 	const descriptionRef = getRef(null)
 	const selectUserRef = getRef(null)
+
+	if (id) {
+		newTodoStore.state = {
+			title,
+			description,
+			userId,
+			id,
+			date,
+		}
+	}
 
 	const handleTitleChange = e => {
 		newTodoStore.state = {
@@ -48,12 +57,12 @@ const Dialog = (params) => {
 		}
 	}
 
-	const handleCancel = () => {
+	const handleClose = () => {
 		containerRef.current.remove()
 		newTodoStore.clear()
 	}
 
-	const handleCreate = () => {
+	const handleConfirm = () => {
 		if (!newTodoStore.state.title) {
 			warning(titleRef.current)
 			return
@@ -69,23 +78,29 @@ const Dialog = (params) => {
 			return
 		}
 
-		newTodoStore.state = {
-			id: createId(),
-			date: getDate(),
+		if (id) {
+			todoListObserver.update(
+				id,
+				newTodoStore.state,
+			)
 		}
 
-		todoListObserver.state = newTodoStore.state
-		handleCancel()
-	}
+		if (!id) {
+			newTodoStore.state = {
+				id: createId(),
+				date: getDate(),
+			}
 
-	setTimeout(() => {
-		clickOutSide(dialogRef.current, handleCancel)
-	}, 0)
+			todoListObserver.state = newTodoStore.state
+		}
+
+		handleClose()
+	}
 
 	return (
 		div({ ref: containerRef, class: styles.container },
 			div({ ref: dialogRef, class: styles.dialog },
-				button({ class: styles.close, onClick: handleCancel },
+				button({ class: styles.close, onClick: handleClose },
 					img({ src: closeImg, alt: 'Close dialog' })
 				),
 
@@ -112,7 +127,7 @@ const Dialog = (params) => {
 				div({},
 					div({ class: styles.responsible },
 						img({ src: userImg, alt: 'title' }),
-						'Responsible'
+						'Contributor'
 					),
 
 					select({ ref: selectUserRef, class: styles.users, onChange: handleUserChange },
@@ -120,7 +135,7 @@ const Dialog = (params) => {
 							'Select user'
 						),
 						...users.map(user => {
-							return option({ value: user.id, selected: user.id === userId },
+							return option({ value: user.id, selected: user.id === +userId },
 								user.name
 							)
 						})
@@ -128,12 +143,12 @@ const Dialog = (params) => {
 				),
 
 				div({ class: styles.groupButtons },
-					button({ type: 'button', class: 'cancel-button _ripple', onClick: handleCancel },
+					button({ type: 'button', class: 'cancel-button _ripple', onClick: handleClose },
 						'Cancel'
 					),
 
-					button({ type: 'button', class: 'confirm-button _ripple', onClick: handleCreate },
-						'Create'
+					button({ type: 'button', class: 'confirm-button _ripple', onClick: handleConfirm },
+						!id ? 'New todo' : 'Save'
 					)
 				)
 			)

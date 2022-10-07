@@ -14,20 +14,29 @@ class Observable extends Storage {
 
 	set state(state) {
 		this.#state = [...this.#state, state]
-		this.updateState('set')
+		this.action('set')
 	}
 
 	get state() {
 		return this.#state
 	}
 
-	updateState(type) {
+	update(id, state) {
+		const index = this.#state.findIndex(todo => todo.id === id)
+
+		this.#prevState = [...this.#state]
+		this.#state[index] = state
+
+		this.action('update')
+	}
+
+	action(type) {
 		this.broadcast(type)
 		this.storage(this.#state)
 		this.#prevState = this.#state
 	}
 
-	removeState(removeId) {
+	remove(removeId) {
 		if (removeId) {
 			this.#state = this.#state.filter(todo => todo.id !== removeId)
 			threeElements.remove(removeId)
@@ -38,7 +47,7 @@ class Observable extends Storage {
 			threeElements.remove()
 		}
 
-		this.updateState('remove')
+		this.action('remove')
 	}
 
 	subscribe(observer) {
