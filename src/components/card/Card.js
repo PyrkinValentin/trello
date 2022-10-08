@@ -1,7 +1,9 @@
 import renderDOM from "../../utils/renderDOM"
 import {button, img, div} from "../../utils/createTags"
 
+
 import Dialog from "../dialog/Dialog"
+import WarnigPopup from "../warnigPopUp/waringPopUp"
 
 import api from "../../api/api"
 import {todoListObserver, inProgressObserver, doneObserver} from "../../observer/rootObserver"
@@ -32,7 +34,9 @@ const Card = (props) => {
 	const handleNext = () => {
 		if (progress === 'wait') {
 			if (inProgressObserver.state.length >= 6) {
-				console.warn('Нельзя переместить в inProgress так как там есть 6 и более активных задач.')
+				renderDOM (
+					WarnigPopup("You cannot add more tnan 6 tasks to complete!", "default")
+				)
 				return
 			}
 

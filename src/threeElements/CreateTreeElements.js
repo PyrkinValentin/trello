@@ -1,4 +1,4 @@
-class CreateThreeElements {
+class CreateTreeElements {
 	#selectors = {}
 
 	set(id, selector) {
@@ -25,4 +25,4 @@ class CreateThreeElements {
 	}
 }
 
-export default CreateThreeElements
+export default CreateTreeElements
