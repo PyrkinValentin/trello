@@ -1,3 +1,14 @@
 import Observable from "./Observable"
+import "./initObserver"
 
-export const observer = new Observable()
+const usersObserver = new Observable([])
+const todoListObserver = new Observable([])
+const inProgressObserver = new Observable([])
+const doneObserver = new Observable([])
+
+export {
+	usersObserver,
+	todoListObserver,
+	inProgressObserver,
+	doneObserver,
+}

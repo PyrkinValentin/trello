@@ -1,41 +1,56 @@
-import Storage from "../utils/Storage"
+import {threeElements} from "../threeElements/rootThreeElements"
 
-const initialState = JSON.parse(window.localStorage.getItem('todos')) || []
-
-class Observable extends Storage {
+class Observable {
 	#observers = []
-	#prevState = initialState
-	#state = initialState
+	#prevState = null
+	#state = null
+	#initialState = null
 
-	constructor() {
-		super()
+	constructor(initialState) {
+		this.#initialState = initialState
+		this.#state = initialState
+		this.#prevState = initialState
+	}
+
+	init(state) {
+		this.#state = [...this.#state, ...state]
+		this.#action('init')
 	}
 
 	set state(state) {
 		this.#state = [...this.#state, state]
-		this.updateState('set')
+		this.#action('set')
 	}
 
 	get state() {
 		return this.#state
 	}
 
-	updateState(type) {
+	update(state) {
+		const index = this.#state.findIndex(todo => todo.id === state.id)
+
+		this.#prevState = [...this.#state]
+		this.#state[index] = state
+
+		this.#action('update')
+	}
+
+	#action(type) {
 		this.broadcast(type)
-		this.storage(this.#state)
 		this.#prevState = this.#state
 	}
 
-	removeState(removeId) {
+	remove(removeId) {
 		if (removeId) {
 			this.#state = this.#state.filter(todo => todo.id !== removeId)
+			threeElements.remove(removeId)
 		}
 
 		if (!removeId) {
-			this.#state = []
+			this.#state = this.#initialState
 		}
 
-		this.updateState('remove')
+		this.#action('remove')
 	}
 
 	subscribe(observer) {

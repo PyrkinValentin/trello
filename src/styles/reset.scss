@@ -47,7 +47,10 @@ input, textarea, select {
 }
 
 button {
+  position: relative;
+  overflow: hidden;
   background-color: transparent;
+  user-select: none;
   border: none;
 
   cursor: pointer;
