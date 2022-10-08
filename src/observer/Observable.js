@@ -1,4 +1,4 @@
-import {threeElements} from "../threeElements/rootThreeElements"
+import {treeElements} from "../threeElements/rootTreeElements"
 
 class Observable {
 	#observers = []
@@ -43,11 +43,16 @@ class Observable {
 	remove(removeId) {
 		if (removeId) {
 			this.#state = this.#state.filter(todo => todo.id !== removeId)
-			threeElements.remove(removeId)
+			treeElements.remove(removeId)
 		}
 
 		if (!removeId) {
+			this.#state.forEach(todo => {
+				treeElements.remove(todo.id)
+			})
+
 			this.#state = this.#initialState
+			this.#prevState = this.#initialState
 		}
 
 		this.#action('remove')

@@ -1,4 +1,4 @@
-import {threeElements} from "../threeElements/rootThreeElements"
+import {treeElements} from "../threeElements/rootTreeElements"
 
 const events = {
 	ref(selector, value) {
@@ -6,7 +6,7 @@ const events = {
 	},
 
 	key(selector, value) {
-		threeElements.set(value, selector)
+		treeElements.set(value, selector)
 	},
 
 	onClick(selector, value) {
