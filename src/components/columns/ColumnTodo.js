@@ -6,7 +6,7 @@ import getRef from "../../utils/getRef"
 import equalObjects from "../../utils/equalObjects"
 
 import {todoListObserver} from "../../observer/rootObserver"
-import {threeElements} from "../../threeElements/rootThreeElements"
+import {treeElements} from "../../threeElements/rootTreeElements"
 
 import styles from "./Columns.module.scss"
 import plusImg from "../../assets/img/plus.svg"
@@ -30,7 +30,7 @@ const ColumnTodo = () => {
 			const todo = state.find((todo, i) => !equalObjects(prevState[i], todo))
 
 			if (todo) {
-				const oldNode = threeElements.get(todo.id)
+				const oldNode = treeElements.get(todo.id)
 
 				todosRef.current.replaceChild(
 					Card(todo),
