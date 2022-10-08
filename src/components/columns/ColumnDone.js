@@ -1,6 +1,8 @@
 import {button, div, h2, img} from "../../utils/createTags"
 import getRef from "../../utils/getRef"
 import equalObjects from "../../utils/equalObjects"
+import renderDOM from "../../utils/renderDOM"
+import WarningPopup from "../warnigPopUp/waringPopUp"
 
 import Card from "../card/Card"
 
@@ -10,6 +12,7 @@ import {treeElements} from "../../threeElements/rootTreeElements"
 import styles from "./Columns.module.scss"
 
 import removeAllImg from "../../assets/img/remove-all.svg"
+
 
 const ColumnDone = () => {
 	const todosRef = getRef(null)
@@ -41,7 +44,9 @@ const ColumnDone = () => {
 	})
 
 	const handleRemoveAll = () => {
-		doneObserver.remove()
+		renderDOM (
+			WarningPopup ('Are you sure you want to remove all items?', 'forRemove')
+		)
 	}
 
 	return (
