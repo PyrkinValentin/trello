@@ -3,7 +3,7 @@ import {button, img, div} from "../../utils/createTags"
 
 
 import Dialog from "../dialog/Dialog"
-import WarnigPopup from "../warnigPopUp/waringPopUp"
+import WarnigPopup from "../warningPopUp/warningPopUp"
 
 import api from "../../api/api"
 import {todoListObserver, inProgressObserver, doneObserver} from "../../observer/rootObserver"

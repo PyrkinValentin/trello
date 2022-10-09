@@ -1,16 +1,14 @@
 import api from "../../api/api"
-import {usersObserver, todoListObserver, inProgressObserver, doneObserver} from "../../observer/rootObserver"
+import {doneObserver} from "../../observer/rootObserver"
 
-import {button, div, img, input, select, textarea, option, label, span} from "../../utils/createTags"
+import {button, div, img, label, span} from "../../utils/createTags"
 import getRef from "../../utils/getRef"
 
-import styles from "./waringPopUP.module.scss"
+import styles from "./warningPopUP.module.scss"
 
 import closeImg from "../../assets/img/remove-gray.svg"
 
-
-
-const WarnigPopup = (textMessage, state) => {
+const WarningPopUp = (textMessage, state) => {
 	const containerRef = getRef(null);
 	const dialogRef = getRef(null);
 	const titleRef = getRef(null);
@@ -24,16 +22,15 @@ const WarnigPopup = (textMessage, state) => {
 		CancelBtn = button({ type: 'button', class: 'cancel-button _ripple', onClick: handleClose }, 'Cancel')
 	}
 
-
-
-	const handleConfirm = () => {
+	const handleConfirm = () => { // Mock API разрешает удалять только по 5 позиций. Если дать запрос на удаление 6-и позиций, вернет на все промимсы статус 200 (успешно). Но в итоге удаляет только 5.
 		containerRef.current.remove();
+
 		const doneTaskPromises = doneObserver.state.map(doneTask => {
 			return api.delete('todos/' + doneTask.id)
 		});
 
 		doneObserver.remove();
-		
+
 		Promise.all(doneTaskPromises).then(results => {
 			const badRequests = results.filter(result => result.status !== 200)
 			badRequests.forEach(todo => doneObserver.state = todo)
@@ -52,10 +49,9 @@ const WarnigPopup = (textMessage, state) => {
 						'Warning'
 					),
 
-					label ({ref: titleRef, class: styles.explanation}, 
+					label ({ref: titleRef, class: styles.explanation},
 						textMessage
 					)
-
 				),
 
 				div({ class: styles.groupButtons },
@@ -67,8 +63,7 @@ const WarnigPopup = (textMessage, state) => {
 			)
 		)
 	);
-
 };
 
 
-export default WarnigPopup
+export default WarningPopUp
