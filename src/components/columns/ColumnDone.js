@@ -2,7 +2,7 @@ import {button, div, h2, img} from "../../utils/createTags"
 import getRef from "../../utils/getRef"
 import equalObjects from "../../utils/equalObjects"
 import renderDOM from "../../utils/renderDOM"
-import WarningPopup from "../warnigPopUp/waringPopUp"
+import WarningPopup from "../warningPopUp/warningPopUp"
 
 import Card from "../card/Card"
 
