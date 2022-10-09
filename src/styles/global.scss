@@ -1,0 +1,33 @@
+body {
+  background: url('../assets/img/background_trello.webp') no-repeat fixed center center;
+  background-size: cover;
+  font-weight: 400;
+}
+
+:root {
+  --color-text: #172b4d;
+
+  --color-blue-light-transparent: rgba(0, 135, 214, 0.8);
+  --color-blue-transparent: #026aa787;
+  --color-blue: #026AA7;
+  --color-blue-buttons: #0079BF;
+  --color-blue-dark: #172b4d;
+
+  --color-violet-light: #c5c6df;
+
+  --color-red-light: #f97474;
+
+  --color-green: #00b573;
+
+  --color-gray: #e2e2e7;
+  --color-lightgray: #d0d4e4;
+  --color-gray-transparent: #ebecf0;
+  --color-gray-dark: #9ca3b0;
+
+  --color-green-border: #2f4f4f;
+
+  --color-white-buttons-text: #fff;
+  --color-white-transparent: #ffffffa8;
+
+  --color-purple-transparent: #ffffff47;
+}
